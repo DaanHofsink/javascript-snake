@@ -1,0 +1,79 @@
+#block {
+    width: 10%;
+    height: 10%;
+    background-color:black;
+    display: inline-block;
+    font-size:13px;
+    margin: 1px;
+    color:white;
+    text-align: center;
+}
+
+#beweeg {
+    height:115px;
+    width:188px;
+    background-color: #efefef;
+    border-top:5px solid #efefef;
+    border-top:5px solid #efefef;
+}
+
+#omhoog {
+    font-size:50px;
+    text-align: Center;
+    margin: 0 auto;
+    height:50px;
+    width:50px;
+    background-color:white;
+}
+
+#score {
+    width:209px;
+    height:30px;
+    background-color: #efefef;
+    margin-bottom:10px;
+    margin-top:10px;
+    text-align: center;
+    font-size:30px;
+}
+#omlaag, #links ,#rechts, score, #omhoog, #score {
+    border-left:2px solid black;
+    border-bottom:2px solid black;
+}
+
+#omlaag, #links ,#rechts {
+    font-size:50px;
+    text-align: Center;
+    margin: 4px;
+    height:49px;
+    width:49px;
+    background-color:white;
+    display: inline-block;
+}
+
+h1,h2,p {
+    font-family: Arial;
+}
+
+#con {
+    float:right;
+    padding: 10px;
+    width:300px;
+    height:300px;
+    color: white;
+    background-color: black;
+}
+
+#con2 {
+    float:right;
+    width:100px;
+    height:100px;
+    padding: 10px;
+    color: white;
+    background-color: red;
+}
+
+#canvas {
+    width:400px;
+    height:400px;
+    border: 2px solid;
+}

@@ -1,0 +1,171 @@
+<HTML>
+    <head>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div id="canvas"></div><button type="button" onclick="snake()">Start</button>
+        <input id="move">
+        <div id="score"></div>
+        <div id="beweeg">
+        
+            <div id="omhoog">w</div>
+            <div id="links">a</div>
+            <div id="omlaag">s</div>
+            <div id="rechts">d</div>
+        
+        </div>
+        <p><i>Snelheid</i></p>
+        <button onclick="verander(1)" >Lekker rustig</button>
+        <button onclick="verander(2)" >Niet rustig</button>
+        <button onclick="verander(3)" >Wauw</button>
+        <p>Refresh voor nieuw game.</p>
+    </body>
+    <script>
+        
+        function verander(a) {
+            switch(a) {
+                case 1:
+                    delaylength = 100;
+                    break;
+                case 2:
+                    delaylength = 75;
+                    break;
+                case 3:
+                    delaylength = 50;
+                    break;      
+                default:
+                    delaylength = 125;
+}
+        }
+        
+        var score = 0;
+        var yposlength = 20;
+        var xposlength = 20;
+        var p = new Array();
+        var xpos = 9;
+        var ypos = 9;
+        var dir = 3;
+        var tail = 5;
+        var delaylength = 125;
+        var xhappie;
+        var yhappie;
+        var lekker = 0;
+        var testMove;
+        var delay = 1;
+        var move = document.getElementById("move");
+        var canvas = document.getElementById("canvas");
+        
+        function happie() {
+            var x = xposlength;
+            var y = yposlength;
+            xhappie = Math.floor(Math.random() * x);
+            yhappie = Math.floor(Math.random() * y);
+        }
+        happie();
+        
+        for (var i = 0; i < yposlength; i++) {
+            p[i] = new Array();
+            for (var x = 0; x < xposlength; x++) {
+                p[i][x];
+                p[i][x] = 0;
+                var newDiv = document.createElement("div");
+                newDiv.id = i + "a" + x;
+                newDiv.className = "a";
+            }
+        }
+        
+        for (var i = 0; i < yposlength; i++) {
+            for (var x = 0; x < xposlength; x++) {
+                var test = i + "a" + x;
+                document.getElementById("canvas").innerHTML += "<div id='" + i + "a" + x + "'></div>";
+                document.getElementById(test).style.width = "5%";
+                document.getElementById(test).style.display = "inline-block";
+                document.getElementById(test).style.height = "5%";
+            }
+        }
+        
+        function snake () {
+            clearInterval(testMove);
+            testMove = setInterval(function(){ keypress() },1);
+            move.focus();
+        }
+        function keypress() {
+            if (ypos > yposlength-1 || ypos < 0 || xpos > xposlength-1 || xpos < 0) {
+                gameover();
+                clearInterval(testMove);
+            }
+                
+            if (move.value == "w") {
+                if (dir != 2) {dir = 0;}
+            } else if (move.value == "a") {
+                if (dir != 1) {dir = 3;}
+            } else if (move.value == "s") {
+                if (dir != 0) {dir = 2;}
+            } else if (move.value == "d") {
+                if (dir != 3) {dir = 1;}
+            }
+            
+            move.value = "";
+            delay++;
+            
+        for (i = 0; i < xposlength; i++) {
+            for (x = 0; x < yposlength; x++) {
+                var test = i + "a" + x;
+                test = document.getElementById(test)
+                if (p[i][x] === 0) {
+                    test.style.backgroundColor = "black";
+                } else if (p[i][x] === -100) {
+                    test.style.backgroundColor = "purple";
+                } else if (p[i][x] === tail) {
+                    test.style.backgroundColor = "green";
+                } else if (p[i][x] > 0) {
+                    test.style.backgroundColor = "red";}
+                if (p[i][x] > 0 && lekker === 0 && delay > delaylength) {
+                    p[i][x] = p[i][x] - 1;
+                } else {
+                    lekker = 0;}
+            }
+        }
+            document.getElementById("score").innerHTML = (tail - 5);
+            
+            if (delay > delaylength && dir == 0) {
+                xpos--;
+                p[xpos][ypos] = p[xpos][ypos] + tail}
+            if (delay > delaylength && dir == 1) {
+                ypos++;
+            p[xpos][ypos] = p[xpos][ypos] + tail}
+            if (delay > delaylength && dir == 2) {
+                xpos++;
+            p[xpos][ypos] = p[xpos][ypos] + tail}
+            if (delay > delaylength && dir == 3) {
+                ypos--;
+            p[xpos][ypos] = p[xpos][ypos] + tail}
+            if (p[xpos][ypos] > tail && delay > delaylength) {
+                gameover();
+            }
+            if (p[xpos][ypos] < 0) {
+                var audio = new Audio('sound/happie1.mp3');
+                audio.play();
+                tail++;
+                p[xhappie][yhappie] = 0;
+                p[xpos][ypos] = p[xpos][ypos] + tail;
+                happie();
+                lekker = 1;
+            }
+            if (delay > delaylength) {
+                delay = 0;
+            }
+            if (p[xhappie][yhappie] === 0) {
+                p[xhappie][yhappie] = -100;
+            }
+        }
+        function gameover() {
+                canvas.style.backgroundColor = "black";
+                canvas.style.fontSize = "50px";
+                canvas.style.textAlign = "center";
+                canvas.style.color = "white";
+                canvas.innerHTML = "Game-Over";
+        }
+    </script>
+</HTML>
